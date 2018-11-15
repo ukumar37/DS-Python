@@ -35,4 +35,20 @@ print(chipotle.index)
 c = chipotle.groupby('item_name').sum()
 # c = c.sum()
 c = c.sort_values(['quantity'], ascending=False)
-print(c.head(10))
+print(c.head(10))  # print the top 10 most ordered items
+
+# which is the most ordered item in the choice description column?
+c = chipotle.groupby('choice_description').sum()
+c = c.sort_values(['quantity'], ascending=False)
+print(c.head(1))
+
+# how many items were ordered in total?
+c = chipotle.quantity.sum()
+print('Total ordered quantity = {}'.format(c))
+
+# what is the total value of the orders placed?
+total_value = 0.0
+for index, row in chipotle.iterrows():
+    total_value = total_value + float(row[1]) * float(row[4].strip('$'))
+
+print('Total value of order placed = ${}'.format(total_value))
