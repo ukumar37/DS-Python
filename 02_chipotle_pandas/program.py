@@ -43,12 +43,25 @@ c = c.sort_values(['quantity'], ascending=False)
 print(c.head(1))
 
 # how many items were ordered in total?
-c = chipotle.quantity.sum()
-print('Total ordered quantity = {}'.format(c))
+c = chipotle['quantity'].sum()
+print('Total ordered quantity = {:,}'.format(c))
 
 # what is the total value of the orders placed?
 total_value = 0.0
 for index, row in chipotle.iterrows():
     total_value = total_value + float(row[1]) * float(row[4].strip('$'))
 
-print('Total value of order placed = ${}'.format(total_value))
+print('Total value of order placed = ${:,.2f}'.format(total_value))
+
+# check the item_price type
+print('item_price data type is = ' + str(chipotle.item_price.dtype))
+
+# convert the item_price type to float
+dollarizer = lambda x: float(x[1:-1])
+chipotle.item_price = chipotle.item_price.apply(dollarizer)
+print('item_price data type is = ' + str(chipotle.item_price.dtype))
+print(chipotle.head(3))
+
+# find the total revenue
+total_revenue = (chipotle['quantity'] * chipotle['item_price']).sum()
+print('Total sales revenue is = ${:,.2f}'.format(total_revenue))
