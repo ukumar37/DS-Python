@@ -1,11 +1,10 @@
 # Getting and knowing your data
+
 import os
 
 import pandas as pd
 
 import numpy as np
-
-url = 'https://raw.githubusercontent.com/justmarkham/DAT8/master/data/chipotle.tsv'
 
 # Define the read folder
 read_folder = os.path.abspath("")
@@ -65,3 +64,20 @@ print(chipotle.head(3))
 # find the total revenue
 total_revenue = (chipotle['quantity'] * chipotle['item_price']).sum()
 print('Total sales revenue is = ${:,.2f}'.format(total_revenue))
+
+# how many orders were placed in that period?
+# total_orders_placed = chipotle.shape[0]  # row count = [0] and column count = [1]
+total_orders_placed = chipotle['order_id'].nunique()  # number of unique/distinct values in a column
+print('Total orders placed = {}'.format(total_orders_placed))
+
+# how many orders were made in the total period
+total_orders_quantity = chipotle['quantity'].sum()
+print('Total order quantity = {}'.format(total_orders_quantity))
+
+# what is the average revenue per order?
+ave_revenue = total_revenue/total_orders_placed
+print('Average revenue per order is ${:,.2f}'.format(ave_revenue))
+
+# how many different items are sold?
+distinct_items_sold = chipotle['item_name'].nunique()
+print('Total distinct items sold = {}'.format(distinct_items_sold))
