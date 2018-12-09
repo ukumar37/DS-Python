@@ -31,7 +31,7 @@ print("Total observations = {} rows and {} columns".format(total_rows, total_col
 print('columns names are = {}'.format(users.columns))
 
 # how is the data indexed? (aka "the labels")
-print(users.index)
+print('data is indexed as follows: {}'.format(users.index))
 
 # what is the type of data in each column
 print('data types are as follows: \n {}'.format(users.dtypes))
